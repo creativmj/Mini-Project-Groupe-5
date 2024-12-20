@@ -9,6 +9,10 @@ return a+b;
 }
 
 //Fonction multiplication AMY
+float multiplication (float a, float b)
+{ float r = a*b
+  return 1;
+}
 
 //Fonction division Maurice
 
