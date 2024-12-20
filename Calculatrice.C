@@ -1,31 +1,72 @@
 #include <stdio.h>
 #include <string.h>
 
-//Declaration des variables
+// Déclaration des structures principales [RESPONSABLE : MAMADOU MAURICE COULIBALY]
+typedef struct Operation {
+    char type[10];  // dépôt, retrait
+    float montant;
+    struct Operation *suivant; // Historique des opérations
+} Operation;
 
-//Fonction addition Moustapha
-int somme (int a, int b) {
-return a+b;
+typedef struct Compte {
+    int numero; // Numéro de compte
+    float solde; // Solde du compte
+    Operation *historique; // Liste des opérations
+    struct Compte *suivant; // Compte suivant
+} Compte;
+
+typedef struct Client {
+    int id; // ID unique du client
+    char nom[50]; // Nom du client
+    char prenom[50]; // Prénom du client
+    Compte *comptes; // Liste des comptes du client
+    struct Client *suivant; // Client suivant
+} Client;
+
+// Fonctions à développer par chaque étudiant
+// Étudiant 1 : Gestion des clients
+void ajouterClient(Client **listeClients) {
+    // Code à développer par [MAMADOU MAURICE COULIBALY]
 }
 
-//Fonction multiplication AMY
-float multiplication (float a, float b)
-{ float r = a*b
-  return 1;
+void rechercherClient(Client *listeClients) {
+    // Code à développer par [MAMADOU MAURICE COULIBALY]
 }
 
-//Fonction division Maurice
-
-void division(int a, int b, int *quotient, int *reste) {
-    if (b == 0) {
-        printf("Erreur : Division par zéro.\n");
-        return;
-    }
-    *quotient = a / b;  // Calcul du quotient
-    *reste = a % b;     // Calcul du reste
-}
-    return 0;
-    
+void afficherClients(Client *listeClients) {
+    // Code à développer par [MAMADOU MAURICE COULIBALY]
 }
 
+// Étudiant 2 : Gestion des comptes
+void ajouterCompte(Client **listeClients) {
+    // Code à développer par [NDEYE AMY DANFA]
+}
 
+void rechercherCompte(Client *listeClients) {
+    // Code à développer par [NDEYE AMY DANFA]
+}
+
+void afficherComptes(Client *listeClients) {
+    // Code à développer par [NDEYE AMY DANFA]
+}
+
+// Étudiant 3 : Gestion des opérations bancaires et fichiers
+void effectuerDepot(Client *listeClients) {
+    // Code à développer par [MOHAMED MOUSTAPHA BA]
+}
+
+void effectuerRetrait(Client *listeClients) {
+    // Code à développer par [MOHAMED MOUSTAPHA BA]
+}
+
+void consulterSolde(Client *listeClients) {
+    // Code à développer par [MOHAMED MOUSTAPHA BA]
+}
+
+void enregistrerDansFichier(Client *listeClients) {
+    // Code à développer par [MOHAMED MOUSTAPHA BA]
+}
+
+void chargerDepuisFichier(Client **listeClients) {
+    // Code à développer par [MOHAMED MOUSTAPHA BA]
+}
