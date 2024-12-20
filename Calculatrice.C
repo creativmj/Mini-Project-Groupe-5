@@ -4,6 +4,9 @@
 //Declaration des variables
 
 //Fonction addition Moustapha
+int somme (int a, int b) {
+return a+b;
+}
 
 //Fonction multiplication AMY
 
