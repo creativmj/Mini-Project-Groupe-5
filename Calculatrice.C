@@ -16,9 +16,14 @@ float multiplication (float a, float b)
 
 //Fonction division Maurice
 
-int main(int argc, char const *argv[])
-{
-    /* code */
+void division(int a, int b, int *quotient, int *reste) {
+    if (b == 0) {
+        printf("Erreur : Division par zéro.\n");
+        return;
+    }
+    *quotient = a / b;  // Calcul du quotient
+    *reste = a % b;     // Calcul du reste
+}
     return 0;
 }
 
