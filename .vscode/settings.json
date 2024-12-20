@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "Calculatrice.C": "cpp"
+        "Calculatrice.C": "cpp",
+        "G5MiniProjetL2.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "enabled"
 }
