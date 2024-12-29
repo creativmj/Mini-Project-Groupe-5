@@ -40,14 +40,64 @@ void afficherClients(Client *listeClients) {
 // Étudiant 2 : Gestion des comptes
 void ajouterCompte(Client **listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
+    void ajouter_compte(int numero, const char* date_ouverture, const char* agence, float solde, int code_client) {
+    Compte* nouveau_compte = (Compte*) malloc(sizeof(Compte));
+    nouveau_compte->numero = numero;
+    strcpy(nouveau_compte->date_ouverture, date_ouverture);
+    strcpy(nouveau_compte->agence, agence);
+    nouveau_compte->solde = solde;
+    nouveau_compte->code_client = code_client;
+    nouveau_compte->suivant = liste_comptes;
+    liste_comptes = nouveau_compte;
+
+    // Enregistrer dans le fichier
+    FILE* fichier = fopen("comptes.dat", "a");
+    if (fichier != NULL) {
+        fprintf(fichier, "%d;%s;%s;%.2f;%d\n", numero, date_ouverture, agence, solde, code_client);
+        fclose(fichier);
+    } else {
+        printf("Erreur d'ouverture du fichier comptes.dat\n");
+    }
+}
+
+
+    // Enregistrer dans le fichier
+    FILE* fichier = fopen("comptes.dat", "a");
+    if (fichier != NULL) {
+        fprintf(fichier, "%d;%s;%s;%.2f;%d\n", numero, date_ouverture, agence, solde, code_client);
+        fclose(fichier);
+    } else {
+        printf("Erreur d'ouverture du fichier comptes.dat\n");
+    }
+}
+
 }
 
 void rechercherCompte(Client *listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
+    Compte* rechercher_compte(int numero) {
+    Compte* compte = liste_comptes;
+    while (compte != NULL) {
+        if (compte->numero == numero) {
+            return compte;  // Compte trouvé
+        }
+        compte = compte->suivant;
+    }
+    return NULL;  // Compte non trouvé
+}
+
 }
 
 void afficherComptes(Client *listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
+    void afficher_comptes() {
+    Compte* compte = liste_comptes;
+    while (compte != NULL) {
+        printf("Compte N°%d | Solde: %.2f\n", compte->numero, compte->solde);
+        compte = compte->suivant;
+    }
+}
+
 }
 
 // Étudiant 3 : Gestion des opérations bancaires et fichiers
