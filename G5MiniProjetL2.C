@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 
-// Déclaration des structures principales [RESPONSABLE DE PROJET : MAMADOU MAURICE COULIBALY]
+// Déclaration des structures principales [RESPONSABLE : MAMADOU MAURICE COULIBALY]
 typedef struct Operation {
     char type[10];  // dépôt, retrait
     float montant;
