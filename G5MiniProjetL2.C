@@ -71,7 +71,7 @@ void ajouterCompte(Client **listeClients) {
     }
 }
 
-}
+
 
 void rechercherCompte(Client *listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
@@ -102,21 +102,92 @@ void afficherComptes(Client *listeClients) {
 
 // Étudiant 3 : Gestion des opérations bancaires et fichiers
 void effectuerDepot(Client *listeClients) {
-    // Code à développer par [MOHAMED MOUSTAPHA BA]
+    int idClient;
+    float montant;
+    printf("Entrez l'ID du client : ");
+    scanf("%d", &idClient);
+    printf("Entrez le montant à déposer : ");
+    scanf("%f", &montant);
+
+    for (int i = 0; i < NOMBRE_DE_CLIENTS; i++) { // Remplacez par la taille réelle de listeClients
+        if (listeClients[i].id == idClient) {
+            listeClients[i].solde += montant;
+            printf("Dépôt effectué. Nouveau solde : %.2f\n", listeClients[i].solde);
+            return;
+        }
+    }
+    printf("Client introuvable.\n");
 }
+
+
 
 void effectuerRetrait(Client *listeClients) {
-    // Code à développer par [MOHAMED MOUSTAPHA BA]
+    int idClient;
+    float montant;
+    printf("Entrez l'ID du client : ");
+    scanf("%d", &idClient);
+    printf("Entrez le montant à retirer : ");
+    scanf("%f", &montant);
+
+    for (int i = 0; i < NOMBRE_DE_CLIENTS; i++) {
+        if (listeClients[i].id == idClient) {
+            if (listeClients[i].solde >= montant) {
+                listeClients[i].solde -= montant;
+                printf("Retrait effectué. Nouveau solde : %.2f\n", listeClients[i].solde);
+            } else {
+                printf("Solde insuffisant.\n");
+            }
+            return;
+        }
+    }
+    printf("Client introuvable.\n");
 }
+
 
 void consulterSolde(Client *listeClients) {
-    // Code à développer par [MOHAMED MOUSTAPHA BA]
+    int idClient;
+    printf("Entrez l'ID du client : ");
+    scanf("%d", &idClient);
+
+    for (int i = 0; i < NOMBRE_DE_CLIENTS; i++) {
+        if (listeClients[i].id == idClient) {
+            printf("Solde actuel de %s %s : %.2f\n", listeClients[i].nom, listeClients[i].prenom, listeClients[i].solde);
+            return;
+        }
+    }
+    printf("Client introuvable.\n");
 }
+
 
 void enregistrerDansFichier(Client *listeClients) {
-    // Code à développer par [MOHAMED MOUSTAPHA BA]
+    FILE *fichier = fopen("clients.txt", "w");
+    if (fichier == NULL) {
+        printf("Erreur d'ouverture du fichier.\n");
+        return;
+    }
+
+    for (int i = 0; i < NOMBRE_DE_CLIENTS; i++) {
+        fprintf(fichier, "%d %s %s %.2f\n", listeClients[i].id, listeClients[i].nom, listeClients[i].prenom, listeClients[i].solde);
+    }
+
+    fclose(fichier);
+    printf("Données enregistrées dans le fichier.\n");
 }
 
+
 void chargerDepuisFichier(Client **listeClients) {
-    // Code à développer par [MOHAMED MOUSTAPHA BA]
+    FILE *fichier = fopen("clients.txt", "r");
+    if (fichier == NULL) {
+        printf("Erreur d'ouverture du fichier.\n");
+        return;
+    }
+
+    int i = 0;
+    while (fscanf(fichier, "%d %s %s %f", &(*listeClients)[i].id, (*listeClients)[i].nom, (*listeClients)[i].prenom, &(*listeClients)[i].solde) != EOF) {
+        i++;
+    }
+
+    fclose(fichier);
+    printf("Données chargées depuis le fichier.\n");
 }
+
