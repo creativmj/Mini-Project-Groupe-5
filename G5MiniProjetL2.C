@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 // Déclaration des structures principales [RESPONSABLE : MAMADOU MAURICE COULIBALY]
@@ -24,20 +25,54 @@ typedef struct Client {
 } Client;
 
 // Fonctions à développer par chaque étudiant
-// Étudiant 1 : Gestion des clients
+// Étudiant 1 : Gestion des clients [MAMADOU MAURICE COULIBALY]
 void ajouterClient(Client **listeClients) {
-    // Code à développer par [MAMADOU MAURICE COULIBALY]
+    Client *nouveau = (Client *)malloc(sizeof(Client));
+    if (!nouveau) {
+        printf("Erreur d'allocation mémoire.\n");
+        return;
+    }
+
+    printf("ID du client : ");
+    scanf("%d", &nouveau->id);
+    printf("Nom : ");
+    scanf("%s", nouveau->nom);
+    printf("Prénom : ");
+    scanf("%s", nouveau->prenom);
+
+    nouveau->comptes = NULL;
+    nouveau->suivant = *listeClients;
+    *listeClients = nouveau;
+
+    printf("Client ajouté avec succès !\n");
 }
 
 void rechercherClient(Client *listeClients) {
-    // Code à développer par [MAMADOU MAURICE COULIBALY]
+     int id;
+    printf("Entrez l'ID du client à rechercher : ");
+    scanf("%d", &id);
+
+    Client *temp = listeClients;
+    while (temp) {
+        if (temp->id == id) {
+            printf("Client trouvé : %s %s\n", temp->nom, temp->prenom);
+            return;
+        }
+        temp = temp->suivant;
+    }
+    printf("Client introuvable.\n");
 }
 
 void afficherClients(Client *listeClients) {
-    // Code à développer par [MAMADOU MAURICE COULIBALY]
+    Client *temp = listeClients;
+    printf("Liste des clients :\n");
+    while (temp) {
+        printf("ID: %d | Nom: %s %s\n", temp->id, temp->nom, temp->prenom);
+        temp = temp->suivant;
+    }
 }
 
-// Étudiant 2 : Gestion des comptes
+// Étudiant 2 : Gestion des comptes [NDEYE AMY DANFA]
 void ajouterCompte(Client **listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
     void ajouter_compte(int numero, const char* date_ouverture, const char* agence, float solde, int code_client) {
@@ -72,7 +107,6 @@ void ajouterCompte(Client **listeClients) {
 }
 
 
-
 void rechercherCompte(Client *listeClients) {
     // Code à développer par [NDEYE AMY DANFA]
     Compte* rechercher_compte(int numero) {
@@ -100,7 +134,7 @@ void afficherComptes(Client *listeClients) {
 
 }
 
-// Étudiant 3 : Gestion des opérations bancaires et fichiers
+// Étudiant 3 : Gestion des opérations bancaires et fichiers [MOUHAMED MOUSTAPHA BA]
 void effectuerDepot(Client *listeClients) {
     int idClient;
     float montant;
@@ -118,8 +152,6 @@ void effectuerDepot(Client *listeClients) {
     }
     printf("Client introuvable.\n");
 }
-
-
 
 void effectuerRetrait(Client *listeClients) {
     int idClient;
@@ -143,7 +175,6 @@ void effectuerRetrait(Client *listeClients) {
     printf("Client introuvable.\n");
 }
 
-
 void consulterSolde(Client *listeClients) {
     int idClient;
     printf("Entrez l'ID du client : ");
@@ -157,7 +188,6 @@ void consulterSolde(Client *listeClients) {
     }
     printf("Client introuvable.\n");
 }
-
 
 void enregistrerDansFichier(Client *listeClients) {
     FILE *fichier = fopen("clients.txt", "w");
@@ -173,7 +203,6 @@ void enregistrerDansFichier(Client *listeClients) {
     fclose(fichier);
     printf("Données enregistrées dans le fichier.\n");
 }
-
 
 void chargerDepuisFichier(Client **listeClients) {
     FILE *fichier = fopen("clients.txt", "r");
