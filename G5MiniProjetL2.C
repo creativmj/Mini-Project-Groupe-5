@@ -156,12 +156,59 @@ void afficherClients() {
 
 // Fonction pour effectuer une opération bancaire (dépôt/retrait)
 void effectuerOperation(const char *type) {
-    // Implémentation à compléter par Mouhamed Moustapha Ba
-}
+    if (clients == NULL) {
+        printf("Aucun client enregistré.\n");
+        return;
+    }
 
-// Affichage des opérations (historique)
+    	
+            printf("Date de l'operation (DD-MM-YYYY) : ");
+            scanf("%s", dateop);
+
+            Operation *operation = (Operation *)malloc(sizeof(Operation));
+            if (!operation) {
+                printf("Erreur d'allocation mémoire pour l'opération\n");
+                return;
+            }
+// Créer et ajouter l'opération
+            operation->code = rand() % 10000;
+            operation->numeroCompte = numeroCompte;
+            strncpy(operation->type, type, sizeof(operation->type) - 1);
+            operation->type[sizeof(operation->type) - 1] = '\0';
+            operation->montant = montant;
+            strncpy(operation->dateop, dateop, sizeof(operation->dateop) - 1);
+            operation->dateop[sizeof(operation->dateop) - 1] = '\0';
+
+            if (strcmp(type, "dépôt") == 0) {
+                client->compte->solde += montant;
+            } else {
+                client->compte->solde -= montant;
+            }
+            operation->soldeActuel = client->compte->solde;
+
+            operation->suivant = historique;
+            historique = operation;
+
+            printf("%s effectué. Nouveau solde : %.2f\n", type, client->compte->solde);
+            return;
+        }
+        client = client->suivant;
+    }
+    printf("Compte introuvable.\n");
+}
+// Afficher les opérations (Historique)
 void afficherOperations() {
-    // Implémentation à compléter par Mouhamed Moustapha Ba
+    if (historique == NULL) {
+        printf("Aucune opération enregistrée.\n");
+        return;
+    }
+
+    Operation *op = historique;
+    while (op) {
+        printf("Code : %d | Compte : %d | Type : %s | Montant : %.2f | Solde : %.2f | Date : %s\n",
+               op->code, op->numeroCompte, op->type, op->montant, op->soldeActuel, op->dateop);
+        op = op->suivant;
+    }
 }
 
 
